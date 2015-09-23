@@ -21,7 +21,7 @@ class BarcodeGeneratorHTML extends BarcodeGenerator
 
         $barcodeData = $this->getBarcodeData($code, $type);
 
-        $html = '<div style="font-size:0;position:relative;width:' . ($barcodeData['maxWidth'] * $widthFactor) . 'px;height:' . ($totalHeight) . 'px;">' . "\n";
+        $html = '<div style="font-size:0;width:' . ($barcodeData['maxWidth'] * $widthFactor) . 'px;height:' . ($totalHeight) . 'px;">' . "\n";
 
         $positionHorizontal = 0;
         foreach ($barcodeData['bars'] as $bar) {
@@ -31,7 +31,9 @@ class BarcodeGeneratorHTML extends BarcodeGenerator
             if ($bar['drawBar']) {
                 $positionVertical = round(($bar['positionVertical'] * $totalHeight / $barcodeData['maxHeight']), 3);
                 // draw a vertical bar
-                $html .= '<div style="background-color:' . $color . ';width:' . $barWidth . 'px;height:' . $barHeight . 'px;position:absolute;left:' . $positionHorizontal . 'px;top:' . $positionVertical . 'px;">&nbsp;</div>' . "\n";
+                $html .= '<div style="float:left;background-color:' . $color . ';width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
+            } else {
+                $html .= '<div style="float:left;width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
             }
 
             $positionHorizontal += $barWidth;
