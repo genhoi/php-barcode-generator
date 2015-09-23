@@ -23,20 +23,15 @@ class BarcodeGeneratorHTML extends BarcodeGenerator
 
         $html = '<div style="font-size:0;width:' . ($barcodeData['maxWidth'] * $widthFactor) . 'px;height:' . ($totalHeight) . 'px;">' . "\n";
 
-        $positionHorizontal = 0;
         foreach ($barcodeData['bars'] as $bar) {
             $barWidth = round(($bar['width'] * $widthFactor), 3);
             $barHeight = round(($bar['height'] * $totalHeight / $barcodeData['maxHeight']), 3);
 
             if ($bar['drawBar']) {
-                $positionVertical = round(($bar['positionVertical'] * $totalHeight / $barcodeData['maxHeight']), 3);
-                // draw a vertical bar
                 $html .= '<div style="float:left;background-color:' . $color . ';width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
             } else {
                 $html .= '<div style="float:left;width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
             }
-
-            $positionHorizontal += $barWidth;
         }
 
         $html .= '</div>' . "\n";
