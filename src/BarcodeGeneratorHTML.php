@@ -12,7 +12,7 @@ class BarcodeGeneratorHTML extends BarcodeGenerator
      * @param string $type type of barcode
      * @param int $widthFactor Width of a single bar element in pixels.
      * @param int $totalHeight Height of a single bar element in pixels.
-     * @param int $color Foreground color for bar elements (background is transparent).
+     * @param int|string $color Foreground color for bar elements (background is transparent).
      * @return string HTML code.
      * @public
      */
@@ -21,21 +21,31 @@ class BarcodeGeneratorHTML extends BarcodeGenerator
 
         $barcodeData = $this->getBarcodeData($code, $type);
 
-        $html = '<div style="font-size:0;width:' . ($barcodeData['maxWidth'] * $widthFactor) . 'px;height:' . ($totalHeight) . 'px;">' . "\n";
+        $html = '<div style="font-size:0;width:' . ($barcodeData['maxWidth'] * $widthFactor) . 'px;height:' . ($totalHeight) . 'px;">';
 
         foreach ($barcodeData['bars'] as $bar) {
             $barWidth = round(($bar['width'] * $widthFactor), 3);
             $barHeight = round(($bar['height'] * $totalHeight / $barcodeData['maxHeight']), 3);
 
             if ($bar['drawBar']) {
-                $html .= '<div style="float:left;background-color:' . $color . ';width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
+                $html .= $this->getColorDiv($barWidth, $barHeight, $color);
             } else {
-                $html .= '<div style="float:left;width:' . $barWidth . 'px;height:' . $barHeight . 'px;">&nbsp;</div>' . "\n";
+                $html .= $this->getTransparentDiv($barWidth, $barHeight);
             }
         }
 
-        $html .= '</div>' . "\n";
+        $html .= '</div>';
 
         return $html;
+    }
+
+    protected function getColorDiv($width, $height, $color)
+    {
+        return "<div style='float:left; border-right:{$width}px solid {$color}; height:{$height}px;'>&nbsp;</div>";
+    }
+
+    protected function getTransparentDiv($width, $height)
+    {
+        return "<div style='float:left; width:{$width}px; height:{$height}px;'>&nbsp;</div>";
     }
 }
