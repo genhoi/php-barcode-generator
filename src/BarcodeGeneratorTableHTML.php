@@ -53,12 +53,12 @@ class BarcodeGeneratorTableHTML extends BarcodeGenerator
 
     protected function getColorTd($width, $height, $color)
     {
-        return "<td style='border-right:{$width}px solid {$color};' height='$height'></td>";
+        return "<td style='border-right:{$width}px solid {$color}; border-spacing:0px;' height='$height'></td>";
     }
 
     protected function getTransparentTd($width, $height)
     {
-        return "<td width='$width' height='$height'></td>";
+        return "<td width='$width' height='$height' style='border-spacing:0px;'></td>";
     }
 
 }
