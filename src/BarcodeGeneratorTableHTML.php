@@ -58,7 +58,7 @@ class BarcodeGeneratorTableHTML extends BarcodeGenerator
 
     protected function getTransparentTd($width, $height)
     {
-        return "<td width='$width' height='$height' style='border-spacing:0px;'></td>";
+        return "<td style='border-right:{$width}px solid #fffff; border-spacing:0px;' height='$height'></td>";
     }
 
 }
